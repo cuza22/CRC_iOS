@@ -7,9 +7,4 @@
 
 import UIKit
 
-class CustomCell: UICollectionViewCell {
-    @IBOutlet var cellButton: UIButton!
-    
-//    func update
-}
 

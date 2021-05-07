@@ -11,7 +11,7 @@ var list = ["still", "walk", "bus", "metro", "manual", "power", "car"]
 
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
-                      UICollectionViewDelegate {
+                      UICollectionViewDelegate { // these are called 'protocols'
     
     @IBOutlet var collectionView: UICollectionView!
     
@@ -24,10 +24,13 @@ class ViewController: UIViewController,
     // DataSource 2
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as UICollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCell else {
+            return UICollectionViewCell()
+        }
 
-        // add cell properties
-
+        let buttonText = list[indexPath.item]
+        cell.update(text: buttonText)
+        
         return cell
     }
     
@@ -58,4 +61,12 @@ class ViewController: UIViewController,
         super.viewDidLoad()
     }
 
+}
+
+class CustomCell: UICollectionViewCell {
+    @IBOutlet var cellButton: UIButton!
+
+    func update(text: String) {
+        cellButton.setTitle(text, for: .normal)
+    }
 }
