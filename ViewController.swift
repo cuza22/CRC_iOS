@@ -40,21 +40,21 @@ class ViewController: UIViewController,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let frameWidth = collectionView.frame.width
         
-        return CGSize(width: frameWidth / 2 - 5, height: frameWidth / 2 - 5)
+        return CGSize(width: frameWidth / 2 - 10, height: frameWidth / 2 - 10)
     }
     
     // vertical space
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-       return 10
+       return 20
     }
 
     // horizontal space
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-       return 10
+       return 20
     }
 
     override func viewDidLoad() {
