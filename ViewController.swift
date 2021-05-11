@@ -11,7 +11,7 @@ var list = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair", "Bus", 
 
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
-                      UICollectionViewDelegate { // these are called 'protocols'
+                      UICollectionViewDelegate {
     
     // collection view
     @IBOutlet var collectionView: UICollectionView!
@@ -44,12 +44,15 @@ class ViewController: UIViewController,
     let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
     @IBAction func onClick(_ sender: Any) {
-        let survey1View = mainStoryBoard.instantiateViewController(identifier: "Survey1")
+        let survey1View = mainStoryBoard.instantiateViewController(withIdentifier: "Survey1")
         
-        survey1View.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        survey1View.modalPresentationStyle = .overFullScreen
+        self.navigationController?.pushViewController(survey1View, animated: true)
         
-        self.present(survey1View, animated: true)
+//        survey1View.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+//        survey1View.modalPresentationStyle = .overFullScreen
+//
+//        self.present(survey1View, animated: true)
+//
     }
 
     override func viewDidLoad() {

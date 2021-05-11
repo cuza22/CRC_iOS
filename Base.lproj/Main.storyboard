@@ -43,6 +43,7 @@
                                                     <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="onClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o9e-yw-vbv"/>
+                                                        <segue destination="z9Q-rK-fpZ" kind="show" animates="NO" id="MR4-0o-PFh"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -101,7 +102,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxW-ad-jok" customClass="DLRadioButton">
-                                <rect key="frame" x="70" y="191" width="63" height="34"/>
+                                <rect key="frame" x="70" y="191" width="84" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="아니오">
                                     <color key="titleColor" name="AccentColor"/>
@@ -172,14 +173,13 @@
         <!--Survey1-->
         <scene sceneID="gnS-iN-xqC">
             <objects>
-                <viewController storyboardIdentifier="Survey1" title="Survey1" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IEk-gT-kTr" customClass="survey1ViewController" customModule="CRC_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Survey1" title="Survey1" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IEk-gT-kTr" customClass="survey1ViewController" customModule="CRC_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8D4-Wq-7zc">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ver-vR-j63" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="164" width="95" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ver-vR-j63" customClass="DLRadioButton">
+                                <rect key="frame" x="40" y="164" width="334" height="34"/>
                                 <state key="normal" title="가방">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
@@ -189,9 +189,8 @@
                                     <outletCollection property="otherButtons" destination="Po6-kd-Fzh" id="yVD-Ke-vxa"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMX-Oa-Bo5" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="135" width="95" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMX-Oa-Bo5" customClass="DLRadioButton">
+                                <rect key="frame" x="40" y="122" width="334" height="34"/>
                                 <state key="normal" title="손">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
@@ -201,9 +200,8 @@
                                     <outletCollection property="otherButtons" destination="Po6-kd-Fzh" id="EF3-LY-6Zw"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po6-kd-Fzh" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="221" width="95" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Po6-kd-Fzh" customClass="DLRadioButton">
+                                <rect key="frame" x="40" y="243" width="334" height="34"/>
                                 <state key="normal" title="기타">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
@@ -213,9 +211,8 @@
                                     <outletCollection property="otherButtons" destination="ver-vR-j63" id="cTd-wC-dw0"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plb-OP-uN0" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="193" width="95" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plb-OP-uN0" customClass="DLRadioButton">
+                                <rect key="frame" x="40" y="201" width="334" height="34"/>
                                 <state key="normal" title="주머니">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
@@ -225,28 +222,69 @@
                                     <outletCollection property="otherButtons" destination="Po6-kd-Fzh" id="AgC-4t-vWi"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hL-b0-E4L">
-                                <rect key="frame" x="4" y="298" width="405" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="데이터 수집동안 핸드폰 위치할 곳" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggF-u7-oOn">
+                                <rect key="frame" x="40" y="81" width="224" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hL-b0-E4L">
+                                <rect key="frame" x="20" y="327" width="374" height="36"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="uqT-jd-wBY"/>
+                                </constraints>
                                 <state key="normal" title="완료"/>
                                 <connections>
                                     <action selector="onClick1:" destination="IEk-gT-kTr" eventType="touchUpInside" id="D7e-16-qh9"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="데이터 수집동안 핸드폰 위치할 곳" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggF-u7-oOn">
-                                <rect key="frame" x="40" y="87" width="224" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vqn-IY-WIF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="plb-OP-uN0" firstAttribute="top" secondItem="ver-vR-j63" secondAttribute="bottom" constant="36" id="2bR-Pg-u5w"/>
+                            <constraint firstItem="ver-vR-j63" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="668-ju-WIQ"/>
+                            <constraint firstItem="LMX-Oa-Bo5" firstAttribute="top" secondItem="ggF-u7-oOn" secondAttribute="bottom" constant="20" id="9Tf-WF-Uoc"/>
+                            <constraint firstItem="plb-OP-uN0" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="Df3-cc-8b2"/>
+                            <constraint firstItem="Po6-kd-Fzh" firstAttribute="top" secondItem="plb-OP-uN0" secondAttribute="bottom" constant="24" id="FCN-wd-3vS"/>
+                            <constraint firstItem="vqn-IY-WIF" firstAttribute="trailing" secondItem="9hL-b0-E4L" secondAttribute="trailing" constant="20" id="J31-oP-3o4"/>
+                            <constraint firstItem="9hL-b0-E4L" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="5" id="OJF-Kv-Pqz"/>
+                            <constraint firstItem="vqn-IY-WIF" firstAttribute="trailing" secondItem="LMX-Oa-Bo5" secondAttribute="trailing" constant="279" id="Rrg-Y5-Aol"/>
+                            <constraint firstItem="ggF-u7-oOn" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="ZXG-Gv-Z8R"/>
+                            <constraint firstItem="9hL-b0-E4L" firstAttribute="top" secondItem="Po6-kd-Fzh" secondAttribute="bottom" constant="80" id="c5T-di-x1Y"/>
+                            <constraint firstItem="9hL-b0-E4L" firstAttribute="centerY" secondItem="vqn-IY-WIF" secondAttribute="centerY" id="cnY-IR-Vku"/>
+                            <constraint firstItem="ver-vR-j63" firstAttribute="top" secondItem="LMX-Oa-Bo5" secondAttribute="bottom" constant="8" symbolic="YES" id="gzm-Qb-hVt"/>
+                            <constraint firstItem="LMX-Oa-Bo5" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="rKC-qF-HBY"/>
+                            <constraint firstItem="Po6-kd-Fzh" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="rf9-Ga-RBv"/>
+                            <constraint firstItem="ggF-u7-oOn" firstAttribute="top" secondItem="vqn-IY-WIF" secondAttribute="top" constant="25" id="vPe-a7-IQg"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="hNR-Go-4cV"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqT-AV-vtg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="763.768115942029" y="-595.3125"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="sFE-CJ-2Pa">
+            <objects>
+                <navigationController storyboardIdentifier="Survey1Navigation" wantsFullScreenLayout="YES" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="z9Q-rK-fpZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Pgj-Pr-oSF"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="vWD-fK-r4K">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FiF-ao-FUM">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="IEk-gT-kTr" kind="relationship" relationship="rootViewController" id="qnc-tk-6Rj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JkI-vx-DBu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-146.37681159420291" y="-595.3125"/>
         </scene>
