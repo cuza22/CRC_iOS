@@ -7,21 +7,20 @@
 
 import UIKit
 
-var list = ["still", "walk", "bus", "metro", "manual", "power", "car"]
+var list = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair", "Bus", "Metro", "Car"]
 
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
                       UICollectionViewDelegate { // these are called 'protocols'
     
+    // collection view
     @IBOutlet var collectionView: UICollectionView!
     
-    // DataSource 1
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return list.count
     }
     
-    // DataSource 2
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? CustomCell else {
@@ -34,7 +33,6 @@ class ViewController: UIViewController,
         return cell
     }
     
-    // size
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -42,7 +40,18 @@ class ViewController: UIViewController,
         
         return CGSize(width: frameWidth / 2 - 10, height: frameWidth / 2 - 10)
     }
+
+    let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     
+    @IBAction func onClick(_ sender: Any) {
+        let survey1View = mainStoryBoard.instantiateViewController(identifier: "Survey1")
+        
+        survey1View.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+        survey1View.modalPresentationStyle = .overFullScreen
+        
+        self.present(survey1View, animated: true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -51,8 +60,9 @@ class ViewController: UIViewController,
 
 class CustomCell: UICollectionViewCell {
     @IBOutlet var cellButton: UIButton!
-
+    
     func update(text: String) {
         cellButton.setTitle(text, for: .normal)
     }
+    
 }
