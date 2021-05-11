@@ -131,7 +131,7 @@
         <!--Data Collecting-->
         <scene sceneID="z2p-nU-Vn7">
             <objects>
-                <viewController storyboardIdentifier="Data Collecting" title="Data Collecting" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YRT-yg-sme" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Data Collecting" title="Data Collecting" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YRT-yg-sme" customClass="DataCollectingViewController" customModule="CRC_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rUC-FF-7rp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -143,11 +143,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0 seconds remaining..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdS-cH-rZM">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdS-cH-rZM" customClass="timeLabel">
                                 <rect key="frame" x="0.0" y="208" width="414" height="41"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="0 seconds remaining...">
+                                        <attributes>
+                                            <font key="NSFont" metaFont="system" size="17"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -155,6 +161,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="GoD-5g-4qO"/>
+                    <connections>
+                        <outlet property="timeLabel" destination="OdS-cH-rZM" id="Gbe-Da-aQq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IGB-Ew-z69" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
