@@ -2,108 +2,67 @@
 //  DataCollectingController.swift
 //  CRC_iOS
 //
-//  Created by 우예지 on 2021/05/18.
+//  Created by 우예지 on 2021/05/11.
 //
 
 import CoreMotion
 
 class DataCollect {
     var motionManager = CMMotionManager()
-    var queue = OperationQueue()
-    
-    func startDataCollect() -> Void {
+    var sensorDataArray: [Double] = []
+
+    // Motion Data
+    func getSensorData() -> Void {
         if motionManager.isDeviceMotionAvailable {
-            getSensorData()
+            self.motionManager.deviceMotionUpdateInterval = 3
+            self.motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
+                if let validMotion = motion {
+                    self.sensorDataArray.append(contentsOf: [                    validMotion.userAcceleration.x,
+                        validMotion.userAcceleration.y,
+                        validMotion.userAcceleration.z,
+                        validMotion.rotationRate.x,
+                        validMotion.rotationRate.y,
+                        validMotion.rotationRate.z,
+                        validMotion.gravity.x,
+                        validMotion.gravity.y,
+                        validMotion.gravity.z,
+                        validMotion.attitude.pitch,
+                        validMotion.attitude.roll,
+                        validMotion.attitude.yaw])
+                }
+            }
         }
     }
     
-    func endDataCollect() -> Void {
-        
-    }
-    
-    // func createCSVFile() -> Void // creates file
-    // func writeCSVFile(csvString: String) -> Void // writes on the file
-    
+    // Create File
     func createCSVFile(csvString: String) -> Void {
-        print("createCSVFile working!\n");
+        print("createCSVFile working!\n"); // debug
 
+        // create directory
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let directoryURL = documentsURL.appendingPathComponent("HCI Lab")
+        do {
+            try fileManager.createDirectory(at: directoryURL, withIntermediateDirectories: false, attributes: nil)
+            print("create directory worked\n")
+        } catch let e {
+            print(e.localizedDescription)
+        }
+        
         // create date string
         let formattedDate = dateManager()
         
-        // create directory
-        let fileManager = FileManager.default
-        do {
-            let path = try fileManager.url(for: .documentDirectory, in: .allDomainsMask, appropriateFor: nil, create: false)
-            print(path)
-        } catch {
-            print("path invalid")
-        }
-        
         // append data to csv file
+        let fileURL = directoryURL.appendingPathComponent(formattedDate + ".csv")
+        let text = NSString(string: self.doubleToString(data: self.sensorDataArray))
+
         do {
-            try csvString.write(toFile: formattedDate + "_SensorData.csv", atomically: true, encoding: .utf8)
-            print("Test: " + csvString) // debug
-            
-        } catch {
-            print("error creating file")
+            try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
+            print("write worked\n")
+            print(fileURL)
+        } catch let e {
+            print(e.localizedDescription)
         }
-    }
-
-    func getSensorData() -> String {
-        var sensorData: String = ""
-
-        self.motionManager.deviceMotionUpdateInterval = 3
-        self.motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
-
-            if (motion?.userAcceleration != nil) {
-                let AccX = motion!.userAcceleration.x
-                let AccY = motion!.userAcceleration.y
-                let AccZ = motion!.userAcceleration.z
-                
-                sensorData += (self.doubleToString(data: AccX, AccY, AccZ) + ",")
-//                print("acc: " + sensorData)
-            }
-
-            if (motion?.rotationRate != nil) {
-                let RotVecX = motion!.rotationRate.x
-                let RotVecY = motion!.rotationRate.y
-                let RotVecZ = motion!.rotationRate.z
-
-                sensorData += (self.doubleToString(data: RotVecX, RotVecY, RotVecZ) + ",")
-//                print("rot: " + sensorData)
-            }
-            
-            if (motion?.magneticField != nil) {
-                let MagX = motion!.magneticField.field.x
-                let MagY = motion!.magneticField.field.y
-                let MagZ = motion!.magneticField.field.z
-                
-                sensorData += (self.doubleToString(data: MagX, MagY, MagZ) + ",")
-//                print("mag: " + sensorData)
-
-            }
-//                let Orientation_1 = motion?.attitude.pitch
-            
-            if (motion?.gravity != nil) {
-                let GraX = motion!.gravity.x
-                let GraY = motion!.gravity.y
-                let GraZ = motion!.gravity.z
-                
-                sensorData += (self.doubleToString(data: GraX, GraY, GraZ) + ",")
-            }
-            print("sensorData: " + sensorData + "\n") // debug
-        }
-        return sensorData + "\n\n"
-    }
-
-//    func stringToCSVRow(dataString: String) -> String {
-//        let csvString = dataString + "\n\n"
-//        return csvString
-//    }
-    
-    func doubleToString(data: Double...) -> String {
-        let dataString = data.map({"\($0)"}).joined(separator: ",")
-        return dataString
     }
 
     func dateManager() -> String {
@@ -113,4 +72,10 @@ class DataCollect {
         let formattedDate = format.string(from: date)
         return formattedDate
     }
+
+    func doubleToString(data: [Double]) -> String {
+        let dataString = data.map({"\($0)"}).joined(separator: ",")
+        return dataString
+    }
+
 }
