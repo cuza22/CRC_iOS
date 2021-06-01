@@ -12,7 +12,7 @@ class survey2ViewController: UIViewController {
 
     @IBAction func onClick2(_ sender: Any) {
         let endAlert = UIAlertController(title: "측정 완료", message: "앱을 종료합니다", preferredStyle: UIAlertController.Style.alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
             UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
         }
         
