@@ -23,8 +23,9 @@ class survey2ViewController: UIViewController {
             
     override func viewDidLoad() {
         super.viewDidLoad()
-        let data = DataCollect()
-        print("csvString: " + data.doubleToString(data: data.sensorDataArray) + "\n") // debug
-        data.createCSVFile(csvString: data.doubleToString(data: data.sensorDataArray))
+        print("survey2 view\n")
+//        let data = DataCollect()
+//        print("csvString: " + data.doubleToString(data: data.sensorDataArray) + "\n") // debug
+//        data.createCSVFile(csvString: data.doubleToString(data: data.sensorDataArray))
     }
 }
