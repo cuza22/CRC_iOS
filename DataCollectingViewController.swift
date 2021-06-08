@@ -8,16 +8,19 @@
 import UIKit
 
 class DataCollectingViewController: UIViewController {
+    let data = DataCollect()
+
     // View
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         startTimer()
-        let data = DataCollect()
-        data.getSensorData()
+        data.startGetSensorData() // start data collecting
     }
 
     func endView() {
+        data.endGetSensorData() // end data collecting
+        
+        // new view
         let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let Survey2View = mainStoryBoard.instantiateViewController(identifier: "Survey2")
         

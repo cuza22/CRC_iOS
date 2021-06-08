@@ -6,24 +6,29 @@
 //
 
 import CoreMotion
+import CoreLocation
 
-class DataCollect {
+class DataCollect : CMMotionManager, CLLocationManagerDelegate {
+    // Motion Data
     var motionManager = CMMotionManager()
     var sensorDataArray: [Double] = []
-    let header = "AccX,AccY,AccZ,GyroX,GyroY,GyroZ,GraX,GraY,GraZ,Pitch,Roll,Yaw\n\n"
+    let sensorHeader = "Year,Month,Day,Hour,Min,Sec,AccX,AccY,AccZ,GyroX,GyroY,GyroZ,GraX,GraY,GraZ,Pitch,Roll,Yaw\n"
+    var sensorDataString : String = ""
+    var fileURL: URL!
 
-    // Motion Data
-    func getSensorData() -> Void {
+    func startGetSensorData() -> Void {
         if motionManager.isDeviceMotionAvailable {
-            // create directory and file
-            let fileURL = createFolderAndFile()
-            self.writeInFile(csvString: header, fileURL: fileURL)
+            // get file URL
+            fileURL = self.createFolderAndFile()
+            // add header to sensorDataString
+            sensorDataString += sensorHeader
             
             // logging sensor data
-            self.motionManager.deviceMotionUpdateInterval = 3
+            self.motionManager.deviceMotionUpdateInterval = 1/10
             self.motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
                 if let validMotion = motion {
-                    self.sensorDataArray.append(contentsOf: [                    validMotion.userAcceleration.x,
+                    self.sensorDataArray = [
+                        validMotion.userAcceleration.x,
                         validMotion.userAcceleration.y,
                         validMotion.userAcceleration.z,
                         validMotion.rotationRate.x,
@@ -34,15 +39,50 @@ class DataCollect {
                         validMotion.gravity.z,
                         validMotion.attitude.pitch,
                         validMotion.attitude.roll,
-                        validMotion.attitude.yaw])
+                        validMotion.attitude.yaw]
                     
-                    print("csvString: " + self.doubleToString(data: self.sensorDataArray) + "\n\n") // debug
-
-                    self.writeInFile(csvString: self.doubleToString(data: self.sensorDataArray), fileURL: fileURL)
+                    self.sensorDataString += (self.dateManager(type: "data") + self.doubleToString(data: self.sensorDataArray))
+                    
+//                    print("csvString: " + self.sensorDataString + "\n") // debug
                 }
             }
         }
     }
+    
+    func endGetSensorData() -> Void {
+        self.writeInFile(csvString: self.sensorDataString, fileURL: fileURL)
+        self.motionManager.stopDeviceMotionUpdates()
+    }
+    
+    // Location Data
+    var locationManager = CLLocationManager()
+    var GPSDataArray: [Double] = []
+    let GPSHeader = "Year,Month,Day,Hour,Min,Sec,Latitude,Longitude,Altitude\n"
+    var GPSDataString : String = ""
+
+    func startGetGPSData() -> Void {
+        if locationManager.locationServicesEnabled() {
+            self.locationManager.delegate = self
+            self.locationManager.requestWhenInUseAuthorization()
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            
+            self.locationManager.startUpdatingLocation()
+            let coor = locationManager.location?.coordinate {
+                self.GPSDataArray = [
+                    coor.latitude,
+                    coor.longitude,
+                    coor.altitude,
+                    // Accuracy는 따로 메소드 실행하면됨 오늘은 여기까지
+                ]
+                }
+        }
+    }
+
+    func endGetGPSData() -> Void {
+        self.writeInFile(csvString: self.sensorDataString, fileURL: fileURL)
+        self.locationManager.stopUpdatingLocation()
+    }
+
     
     // Create folder
     func createFolderAndFile() -> URL {
@@ -60,7 +100,7 @@ class DataCollect {
         }
         
         // create date string
-        let formattedDate = dateManager()
+        let formattedDate = dateManager(type: "file")
         
         // create file directory
         let fileURL = directoryURL.appendingPathComponent(formattedDate + ".csv")
@@ -70,27 +110,27 @@ class DataCollect {
     
     // Create File
     func writeInFile(csvString: String, fileURL: URL) -> Void {
-//        let text = NSString(string: self.doubleToString(data: self.sensorDataArray))
-        if let fileUpdater = try? FileHandle(forUpdating: fileURL) {
-            fileUpdater.seekToEndOfFile()
-            fileUpdater.write(csvString.data(using: .utf8)!)
-            fileUpdater.closeFile()
+        let text = NSString(string: csvString)
+        do {
+            try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
+            print("write worked\n")
+        } catch let e {
+            print(e.localizedDescription)
         }
-//        try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
-//        print("write worked\n")
-//        } catch let e {
-//            print(e.localizedDescription)
-//        }
     }
 
-    func dateManager() -> String {
+    func dateManager(type: String) -> String {
         let date = Date()
         let format = DateFormatter()
-        format.dateFormat = "yyyy_MM_dd_HH_mm_ss"
+        if type == "file" {
+            format.dateFormat = "yyyy_MM_dd_HH_mm_ss"
+        } else if type == "data" {
+            format.dateFormat = "yyyy,MM,dd,HH,mm,ss,"
+        }
         let formattedDate = format.string(from: date)
         return formattedDate
     }
-
+    
     func doubleToString(data: [Double]) -> String {
         let dataString = data.map({"\($0)"}).joined(separator: ",") + "\n"
         return dataString
