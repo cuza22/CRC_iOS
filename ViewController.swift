@@ -7,7 +7,7 @@
 
 import UIKit
 
-var list = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair", "Bus", "Metro", "Car"]
+var transportation = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair", "Bus", "Metro", "Car"]
 
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
@@ -18,7 +18,7 @@ class ViewController: UIViewController,
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        return transportation.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -27,7 +27,7 @@ class ViewController: UIViewController,
             return UICollectionViewCell()
         }
 
-        let buttonText = list[indexPath.item]
+        let buttonText = transportation[indexPath.item]
         cell.update(text: buttonText)
         
         return cell

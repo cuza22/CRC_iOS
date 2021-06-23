@@ -8,23 +8,22 @@
 import CoreMotion
 import CoreLocation
 
+let FREQUENCY: Double = 60
+
 class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     // Motion Data
     var motionManager = CMMotionManager()
     var sensorDataArray: [Double] = []
     let sensorHeader = "Year,Month,Day,Hour,Min,Sec,AccX,AccY,AccZ,GyroX,GyroY,GyroZ,GraX,GraY,GraZ,Pitch,Roll,Yaw\n"
     var sensorDataString : String = ""
-    var fileURL: URL!
+    var directoryURL : URL!
 
     func startGetSensorData() -> Void {
         if motionManager.isDeviceMotionAvailable {
-            // get file URL
-            fileURL = self.createFolderAndFile()
-            // add header to sensorDataString
             sensorDataString += sensorHeader
             
             // logging sensor data
-            self.motionManager.deviceMotionUpdateInterval = 1/10
+            self.motionManager.deviceMotionUpdateInterval = 1/FREQUENCY
             self.motionManager.startDeviceMotionUpdates(to: .main) { (motion, error) in
                 if let validMotion = motion {
                     self.sensorDataArray = [
@@ -39,7 +38,8 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
                         validMotion.gravity.z,
                         validMotion.attitude.pitch,
                         validMotion.attitude.roll,
-                        validMotion.attitude.yaw]
+                        validMotion.attitude.yaw
+                    ]
                     
                     self.sensorDataString += (self.dateManager(type: "data") + self.doubleToString(data: self.sensorDataArray))
                     
@@ -50,6 +50,7 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     }
     
     func endGetSensorData() -> Void {
+        let fileURL = createFile(transportation: "Car", sensor: "Sensor")
         self.writeInFile(csvString: self.sensorDataString, fileURL: fileURL)
         self.motionManager.stopDeviceMotionUpdates()
     }
@@ -57,58 +58,77 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     // Location Data
     var locationManager = CLLocationManager()
     var GPSDataArray: [Double] = []
-    let GPSHeader = "Year,Month,Day,Hour,Min,Sec,Latitude,Longitude,Altitude\n"
+    let GPSHeader = "Year,Month,Day,Hour,Min,Sec,Latitude,Longitude,Altitude,Speed\n"
     var GPSDataString : String = ""
-
+    
+//    func setGPSAuthorization() {
+////            locationManagerDidChangeAuthorization(CLlocationManager)
+//    }
+    
     func startGetGPSData() -> Void {
-        if locationManager.locationServicesEnabled() {
-            self.locationManager.delegate = self
-            self.locationManager.requestWhenInUseAuthorization()
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            
+        print("startGetGPSData\n")
+        GPSDataString += GPSHeader
+        locationManager.requestWhenInUseAuthorization()
+        
+        if (locationManager.authorizationStatus == .authorizedAlways
+                || locationManager.authorizationStatus == .authorizedWhenInUse) {
+            locationManager.delegate = self
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest // highest accuracy
             self.locationManager.startUpdatingLocation()
-            let coor = locationManager.location?.coordinate {
-                self.GPSDataArray = [
-                    coor.latitude,
-                    coor.longitude,
-                    coor.altitude,
-                    // Accuracy는 따로 메소드 실행하면됨 오늘은 여기까지
-                ]
-                }
         }
+
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        // logging GPS data
+        guard let location = manager.location else {
+            return
+        }
+        self.GPSDataArray = [
+            location.coordinate.latitude,
+            location.coordinate.longitude,
+            location.altitude,
+            location.speed
+        ]
+
+        self.GPSDataString += (self.dateManager(type: "data") + self.doubleToString(data: self.GPSDataArray))
+        print(self.GPSDataArray) // debug
+        print("\n")
     }
 
     func endGetGPSData() -> Void {
-        self.writeInFile(csvString: self.sensorDataString, fileURL: fileURL)
+        let fileURL = createFile(transportation: "Car", sensor: "GPS")
+        self.writeInFile(csvString: self.GPSDataString, fileURL: fileURL)
         self.locationManager.stopUpdatingLocation()
     }
 
     
-    // Create folder
-    func createFolderAndFile() -> URL {
+    // Create folder and file
+    func setFolderDirectory() -> Void {
         print("createFolder working!\n"); // debug
 
         // create directory
         let fileManager = FileManager()
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let directoryURL = documentsURL.appendingPathComponent("HCI Lab")
+        directoryURL = documentsURL.appendingPathComponent("HCI Lab")
         do {
             try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: false, attributes: nil)
             print("create directory worked\n")
         } catch let error as NSError {
             print("Error creating directory: \(error.localizedDescription)")
         }
-        
+    }
+    
+    func createFile(transportation: String, sensor: String) -> URL {
         // create date string
         let formattedDate = dateManager(type: "file")
         
         // create file directory
-        let fileURL = directoryURL.appendingPathComponent(formattedDate + ".csv")
-        
+        let fileURL = directoryURL.appendingPathComponent(formattedDate + "_" + sensor + "Data.csv")
+
         return fileURL
     }
     
-    // Create File
     func writeInFile(csvString: String, fileURL: URL) -> Void {
         let text = NSString(string: csvString)
         do {
@@ -135,5 +155,5 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
         let dataString = data.map({"\($0)"}).joined(separator: ",") + "\n"
         return dataString
     }
-
 }
+

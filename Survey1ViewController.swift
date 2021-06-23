@@ -12,6 +12,7 @@ class survey1ViewController: UIViewController {
     
     let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
 
+    // 완료 Button
     @IBAction func onClick1(_ sender: Any) {
         let DataCollectingView = mainStoryBoard.instantiateViewController(identifier: "Data Collecting")
         
@@ -20,6 +21,11 @@ class survey1ViewController: UIViewController {
         
         self.present(DataCollectingView, animated: true)
     }
+    
+    // Radio Buttons
+    @IBOutlet var radioButtons: [UIButton]!
+    
+    var index: Int?
  
     override func viewDidLoad() {
         super.viewDidLoad()

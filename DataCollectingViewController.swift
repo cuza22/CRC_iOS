@@ -7,6 +7,8 @@
 
 import UIKit
 
+let TIME = 660
+
 class DataCollectingViewController: UIViewController {
     let data = DataCollect()
 
@@ -14,11 +16,20 @@ class DataCollectingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         startTimer()
+        
+        data.setFolderDirectory()
         data.startGetSensorData() // start data collecting
+        data.startGetGPSData()
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
 
+    }
+    
     func endView() {
         data.endGetSensorData() // end data collecting
+        data.endGetGPSData()
         
         // new view
         let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -34,7 +45,7 @@ class DataCollectingViewController: UIViewController {
     @IBOutlet var timeLabel: UILabel!
     
     var timer : Timer?
-    var timeLeft : Int = 10
+    var timeLeft : Int = TIME
     
     func startTimer() {
         self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(DataCollectingViewController.timerCallBack), userInfo: nil, repeats: true)
