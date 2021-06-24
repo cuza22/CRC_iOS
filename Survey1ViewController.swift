@@ -7,16 +7,19 @@
 
 import UIKit
 
-class survey1ViewController: UIViewController {
+class Survey1ViewController: UIViewController {
+    var position: String! = ""
     
-    let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-
     // 완료 Button
-    @IBAction func onClick1(_ sender: Any) {
+    @IBAction func onClick1(_ sender: UIButton) {
+        let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let DataCollectingView = mainStoryBoard.instantiateViewController(identifier: "Data Collecting")
         // get index
         if index != nil {
             _ = chosenIndex?(self.index!)
+            
+            // save position
+            position = positionArray[self.index!]
             
             // change view
             DataCollectingView.modalTransitionStyle = UIModalTransitionStyle.coverVertical
@@ -28,6 +31,7 @@ class survey1ViewController: UIViewController {
     // Radio Buttons
     @IBOutlet var radioButtons: [UIButton]!
 
+    let positionArray: [String] = ["손", "가방", "주머니", "기타"]
     var index: Int?
     var chosenIndex: ((Int) -> (Int))?
     

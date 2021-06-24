@@ -8,9 +8,10 @@
 import CoreMotion
 import CoreLocation
 
-let FREQUENCY: Double = 60
+let FREQUENCY: Double = 80
 let fileCreator = FileCreator()
 let vc = ViewController()
+let positionvc = Survey1ViewController()
 
 class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     let fileURL = fileCreator.createFileURL(transportation: vc.selectedTransportation, sensor: "Sensor")
@@ -53,7 +54,8 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     }
     
     func endGetSensorData() -> Void {
-        fileCreator.writeInFile(csvString: self.sensorDataString, fileURL: fileURL)
+        fileCreator.writeInFile(csvString: "Position\n" + positionvc.position + "\n", fileURL: fileURL) // position
+        fileCreator.writeInFile(csvString: self.sensorDataString, fileURL: fileURL) // data
         self.motionManager.stopDeviceMotionUpdates()
     }
     

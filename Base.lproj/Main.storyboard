@@ -84,31 +84,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IDV-xb-588" customClass="DLRadioButton">
-                                <rect key="frame" x="20" y="135.5" width="374" height="34"/>
-                                <state key="normal" title="예">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
-                                <connections>
-                                    <outletCollection property="otherButtons" destination="pxW-ad-jok" id="Mfu-Lg-WvC"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="데이터 수집에 성실히 참여하셨습니까?" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="or7-21-rDw">
                                 <rect key="frame" x="20" y="77" width="374" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxW-ad-jok" customClass="DLRadioButton">
-                                <rect key="frame" x="20" y="199.5" width="374" height="34"/>
-                                <state key="normal" title="아니오">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
-                                <connections>
-                                    <outletCollection property="otherButtons" destination="IDV-xb-588" id="EkM-v7-tEE"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6GA-aQ-woS">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6GA-aQ-woS">
                                 <rect key="frame" x="20" y="283" width="374" height="37"/>
                                 <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                 <state key="normal" title="완료"/>
@@ -116,24 +98,41 @@
                                     <action selector="onClick2:" destination="wDf-uP-jUk" eventType="touchUpInside" id="7JU-gK-VHA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7UI-s4-M09">
+                                <rect key="frame" x="188" y="120" width="30" height="30"/>
+                                <state key="normal" title="예"/>
+                                <connections>
+                                    <action selector="radioButtonSelect:" destination="wDf-uP-jUk" eventType="touchUpInside" id="5Ea-rd-Cv0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UOU-MM-RK3">
+                                <rect key="frame" x="188" y="174" width="39" height="30"/>
+                                <state key="normal" title="아니오"/>
+                                <connections>
+                                    <action selector="radioButtonSelect:" destination="wDf-uP-jUk" eventType="touchUpInside" id="jKc-mE-vcZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="44x-yY-j26"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="UOU-MM-RK3" firstAttribute="leading" secondItem="6GA-aQ-woS" secondAttribute="trailing" constant="-206" id="54M-XC-BY2"/>
                             <constraint firstItem="6GA-aQ-woS" firstAttribute="leading" secondItem="44x-yY-j26" secondAttribute="leading" constant="20" id="94f-vo-kB6"/>
                             <constraint firstItem="44x-yY-j26" firstAttribute="trailing" secondItem="or7-21-rDw" secondAttribute="trailing" constant="20" id="97O-rh-dv7"/>
                             <constraint firstItem="or7-21-rDw" firstAttribute="leading" secondItem="44x-yY-j26" secondAttribute="leading" constant="20" id="Ae2-FW-ktu"/>
-                            <constraint firstItem="IDV-xb-588" firstAttribute="leading" secondItem="44x-yY-j26" secondAttribute="leading" constant="20" id="ObG-zz-SJr"/>
-                            <constraint firstItem="IDV-xb-588" firstAttribute="top" secondItem="or7-21-rDw" secondAttribute="bottom" constant="24" id="UAE-8W-s2c"/>
-                            <constraint firstItem="44x-yY-j26" firstAttribute="trailing" secondItem="IDV-xb-588" secondAttribute="trailing" constant="20" id="fPS-nD-AGW"/>
+                            <constraint firstItem="7UI-s4-M09" firstAttribute="centerX" secondItem="44x-yY-j26" secondAttribute="centerX" id="Cz1-ze-DLl"/>
+                            <constraint firstItem="UOU-MM-RK3" firstAttribute="centerX" secondItem="44x-yY-j26" secondAttribute="centerX" id="Tha-n0-OVT"/>
+                            <constraint firstItem="or7-21-rDw" firstAttribute="leading" secondItem="7UI-s4-M09" secondAttribute="trailing" constant="-41" id="eUY-To-dJJ"/>
                             <constraint firstItem="44x-yY-j26" firstAttribute="trailing" secondItem="6GA-aQ-woS" secondAttribute="trailing" constant="20" id="hLD-K2-kgp"/>
-                            <constraint firstItem="44x-yY-j26" firstAttribute="trailing" secondItem="pxW-ad-jok" secondAttribute="trailing" constant="20" id="qBq-dk-LnS"/>
-                            <constraint firstItem="pxW-ad-jok" firstAttribute="leading" secondItem="44x-yY-j26" secondAttribute="leading" constant="20" id="uBZ-zc-op8"/>
+                            <constraint firstItem="6GA-aQ-woS" firstAttribute="centerX" secondItem="44x-yY-j26" secondAttribute="centerX" id="lYS-Kc-owM"/>
+                            <constraint firstItem="UOU-MM-RK3" firstAttribute="top" secondItem="7UI-s4-M09" secondAttribute="bottom" constant="24" id="qt7-ho-Yp7"/>
                             <constraint firstItem="or7-21-rDw" firstAttribute="top" secondItem="44x-yY-j26" secondAttribute="top" constant="47" id="x7j-sT-TxE"/>
-                            <constraint firstItem="pxW-ad-jok" firstAttribute="top" secondItem="IDV-xb-588" secondAttribute="bottom" constant="30" id="y5m-3g-2ia"/>
-                            <constraint firstItem="6GA-aQ-woS" firstAttribute="top" secondItem="pxW-ad-jok" secondAttribute="bottom" constant="50" id="yCI-VP-RrL"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outletCollection property="radioButtons" destination="7UI-s4-M09" collectionClass="NSMutableArray" id="hYZ-Js-Fa2"/>
+                        <outletCollection property="radioButtons" destination="UOU-MM-RK3" collectionClass="NSMutableArray" id="hD5-sU-A6M"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcu-fh-FBe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -17,6 +17,7 @@ let TIME = 660
 
 class DataCollectingViewController: UIViewController {
     let data = DataCollect()
+    
     // View
     override func viewDidLoad() {
         super.viewDidLoad()
