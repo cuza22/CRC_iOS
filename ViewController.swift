@@ -12,7 +12,6 @@ var transportation = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
                       UICollectionViewDelegate {
-    
     // collection view
     @IBOutlet var collectionView: UICollectionView!
     
@@ -41,18 +40,23 @@ class ViewController: UIViewController,
         return CGSize(width: frameWidth / 2 - 10, height: frameWidth / 2 - 10)
     }
 
-    let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    
-    @IBAction func onClick(_ sender: Any) {
+    // for selecting a transportation
+    let fileCreator = FileCreator()
+    var selectedTransportation: String! = ""
+
+    // onclick event
+    @IBAction func onClick(_ sender: UIButton) {
+        // change view
+        let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let survey1View = mainStoryBoard.instantiateViewController(withIdentifier: "Survey1")
-        
         self.navigationController?.pushViewController(survey1View, animated: true)
         
-//        survey1View.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-//        survey1View.modalPresentationStyle = .overFullScreen
-//
-//        self.present(survey1View, animated: true)
-//
+        // create folder
+        selectedTransportation = sender.titleLabel!.text
+        fileCreator.setFolderDirectory()
+        
+        // take a picture
+        
     }
 
     override func viewDidLoad() {

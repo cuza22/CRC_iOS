@@ -190,56 +190,8 @@
                 <viewController storyboardIdentifier="Survey1" title="Survey1" wantsFullScreenLayout="YES" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IEk-gT-kTr" customClass="survey1ViewController" customModule="CRC_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8D4-Wq-7zc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ver-vR-j63" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="164" width="333" height="34"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="가방">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
-                                <connections>
-                                    <outletCollection property="otherButtons" destination="LMX-Oa-Bo5" id="xxU-u2-vz5"/>
-                                    <outletCollection property="otherButtons" destination="plb-OP-uN0" id="Gjc-fo-Ilp"/>
-                                    <outletCollection property="otherButtons" destination="Po6-kd-Fzh" id="yVD-Ke-vxa"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="LMX-Oa-Bo5" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="122" width="333" height="34"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="손">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
-                                <connections>
-                                    <outletCollection property="otherButtons" destination="plb-OP-uN0" id="VfS-pU-GxQ"/>
-                                    <outletCollection property="otherButtons" destination="ver-vR-j63" id="UWI-fu-a0r"/>
-                                    <outletCollection property="otherButtons" destination="Po6-kd-Fzh" id="EF3-LY-6Zw"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Po6-kd-Fzh" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="243" width="333" height="34"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="기타">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
-                                <connections>
-                                    <outletCollection property="otherButtons" destination="LMX-Oa-Bo5" id="R4n-aE-KAJ"/>
-                                    <outletCollection property="otherButtons" destination="plb-OP-uN0" id="wwd-p0-yKD"/>
-                                    <outletCollection property="otherButtons" destination="ver-vR-j63" id="cTd-wC-dw0"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="plb-OP-uN0" customClass="DLRadioButton">
-                                <rect key="frame" x="40" y="201" width="333" height="34"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="주머니">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
-                                <connections>
-                                    <outletCollection property="otherButtons" destination="LMX-Oa-Bo5" id="cmA-cf-eDD"/>
-                                    <outletCollection property="otherButtons" destination="ver-vR-j63" id="Q0u-DW-FQt"/>
-                                    <outletCollection property="otherButtons" destination="Po6-kd-Fzh" id="AgC-4t-vWi"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="데이터 수집동안 핸드폰 위치할 곳" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggF-u7-oOn">
                                 <rect key="frame" x="40" y="81" width="237" height="33"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -257,28 +209,62 @@
                                     <action selector="onClick1:" destination="IEk-gT-kTr" eventType="touchUpInside" id="D7e-16-qh9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beK-02-svH">
+                                <rect key="frame" x="192" y="160" width="30" height="30"/>
+                                <state key="normal" title="가방"/>
+                                <connections>
+                                    <action selector="radioButtonSelect:" destination="IEk-gT-kTr" eventType="touchUpInside" id="btd-3g-ELw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bek-15-okF">
+                                <rect key="frame" x="187.5" y="198" width="39" height="30"/>
+                                <state key="normal" title="주머니"/>
+                                <connections>
+                                    <action selector="radioButtonSelect:" destination="IEk-gT-kTr" eventType="touchUpInside" id="fVF-H9-KKl"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bwy-y3-J50">
+                                <rect key="frame" x="192" y="236" width="30" height="30"/>
+                                <state key="normal" title="기타"/>
+                                <connections>
+                                    <action selector="radioButtonSelect:" destination="IEk-gT-kTr" eventType="touchUpInside" id="fZF-wa-bDV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fow-Uc-NkU">
+                                <rect key="frame" x="192" y="122" width="30" height="30"/>
+                                <state key="normal" title="손"/>
+                                <connections>
+                                    <action selector="radioButtonSelect:" destination="IEk-gT-kTr" eventType="touchUpInside" id="LGj-S7-rNH"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vqn-IY-WIF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="plb-OP-uN0" firstAttribute="top" secondItem="ver-vR-j63" secondAttribute="bottom" constant="30" id="2bR-Pg-u5w"/>
-                            <constraint firstItem="ver-vR-j63" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="668-ju-WIQ"/>
-                            <constraint firstItem="LMX-Oa-Bo5" firstAttribute="top" secondItem="ggF-u7-oOn" secondAttribute="bottom" constant="30" id="9Tf-WF-Uoc"/>
-                            <constraint firstItem="plb-OP-uN0" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="Df3-cc-8b2"/>
-                            <constraint firstItem="Po6-kd-Fzh" firstAttribute="top" secondItem="plb-OP-uN0" secondAttribute="bottom" constant="30" id="FCN-wd-3vS"/>
+                            <constraint firstItem="Bwy-y3-J50" firstAttribute="centerX" secondItem="vqn-IY-WIF" secondAttribute="centerX" id="03T-bP-nbz"/>
                             <constraint firstItem="vqn-IY-WIF" firstAttribute="trailing" secondItem="9hL-b0-E4L" secondAttribute="trailing" priority="100" constant="20" id="J31-oP-3o4"/>
+                            <constraint firstItem="fow-Uc-NkU" firstAttribute="centerX" secondItem="vqn-IY-WIF" secondAttribute="centerX" id="NxN-8h-Q1q"/>
                             <constraint firstItem="9hL-b0-E4L" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="20" id="OJF-Kv-Pqz"/>
-                            <constraint firstItem="vqn-IY-WIF" firstAttribute="trailing" secondItem="LMX-Oa-Bo5" secondAttribute="trailing" constant="279" id="Rrg-Y5-Aol"/>
+                            <constraint firstItem="fow-Uc-NkU" firstAttribute="top" secondItem="ggF-u7-oOn" secondAttribute="bottom" constant="8" symbolic="YES" id="VIl-Vc-MZa"/>
                             <constraint firstItem="ggF-u7-oOn" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="ZXG-Gv-Z8R"/>
-                            <constraint firstItem="9hL-b0-E4L" firstAttribute="top" secondItem="Po6-kd-Fzh" secondAttribute="bottom" constant="80" id="c5T-di-x1Y"/>
+                            <constraint firstItem="Bwy-y3-J50" firstAttribute="top" secondItem="Bek-15-okF" secondAttribute="bottom" constant="8" symbolic="YES" id="bdZ-c6-JxF"/>
                             <constraint firstItem="9hL-b0-E4L" firstAttribute="centerY" secondItem="vqn-IY-WIF" secondAttribute="centerY" id="cnY-IR-Vku"/>
-                            <constraint firstItem="ver-vR-j63" firstAttribute="top" secondItem="LMX-Oa-Bo5" secondAttribute="bottom" constant="30" id="gzm-Qb-hVt"/>
-                            <constraint firstItem="LMX-Oa-Bo5" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="rKC-qF-HBY"/>
-                            <constraint firstItem="Po6-kd-Fzh" firstAttribute="leading" secondItem="vqn-IY-WIF" secondAttribute="leading" constant="40" id="rf9-Ga-RBv"/>
+                            <constraint firstItem="9hL-b0-E4L" firstAttribute="centerY" secondItem="vqn-IY-WIF" secondAttribute="centerY" id="e2Y-AS-RKW"/>
+                            <constraint firstItem="beK-02-svH" firstAttribute="centerX" secondItem="vqn-IY-WIF" secondAttribute="centerX" id="iTS-7D-u6D"/>
+                            <constraint firstItem="beK-02-svH" firstAttribute="top" secondItem="fow-Uc-NkU" secondAttribute="bottom" constant="8" symbolic="YES" id="iaR-nB-rJ4"/>
+                            <constraint firstItem="Bek-15-okF" firstAttribute="centerX" secondItem="vqn-IY-WIF" secondAttribute="centerX" id="lfb-WE-CIn"/>
+                            <constraint firstItem="9hL-b0-E4L" firstAttribute="top" secondItem="Bwy-y3-J50" secondAttribute="bottom" constant="61" id="mEh-Ww-Yd9"/>
+                            <constraint firstItem="Bek-15-okF" firstAttribute="top" secondItem="beK-02-svH" secondAttribute="bottom" constant="8" symbolic="YES" id="oby-sM-CTl"/>
                             <constraint firstItem="ggF-u7-oOn" firstAttribute="top" secondItem="vqn-IY-WIF" secondAttribute="top" constant="25" id="vPe-a7-IQg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hNR-Go-4cV"/>
+                    <connections>
+                        <outletCollection property="radioButtons" destination="fow-Uc-NkU" collectionClass="NSMutableArray" id="cbK-qr-7qA"/>
+                        <outletCollection property="radioButtons" destination="beK-02-svH" collectionClass="NSMutableArray" id="i9p-BW-blN"/>
+                        <outletCollection property="radioButtons" destination="Bek-15-okF" collectionClass="NSMutableArray" id="e10-Ws-D1L"/>
+                        <outletCollection property="radioButtons" destination="Bwy-y3-J50" collectionClass="NSMutableArray" id="ZuZ-RL-mrn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wqT-AV-vtg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

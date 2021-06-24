@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import DLRadioButton
 
 class survey1ViewController: UIViewController {
     
@@ -15,19 +14,38 @@ class survey1ViewController: UIViewController {
     // 완료 Button
     @IBAction func onClick1(_ sender: Any) {
         let DataCollectingView = mainStoryBoard.instantiateViewController(identifier: "Data Collecting")
-        
-        DataCollectingView.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-        DataCollectingView.modalPresentationStyle = .overFullScreen
-        
-        self.present(DataCollectingView, animated: true)
-    }
-    
+        // get index
+        if index != nil {
+            _ = chosenIndex?(self.index!)
+            
+            // change view
+            DataCollectingView.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+            DataCollectingView.modalPresentationStyle = .overFullScreen
+            self.present(DataCollectingView, animated: true)
+        }
+            }
+
     // Radio Buttons
     @IBOutlet var radioButtons: [UIButton]!
-    
+
     var index: Int?
- 
+    var chosenIndex: ((Int) -> (Int))?
+    
+    @IBAction func radioButtonSelect(_ sender: UIButton) {
+        if (index != nil || !sender.isSelected) {
+            for index in radioButtons.indices {
+                radioButtons[index].isSelected = false
+            }
+        sender.isSelected = true
+        index = radioButtons.firstIndex(of: sender)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    // create file
+    let data = DataCollect()
+    
 }

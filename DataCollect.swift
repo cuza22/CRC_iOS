@@ -9,14 +9,17 @@ import CoreMotion
 import CoreLocation
 
 let FREQUENCY: Double = 60
+let fileCreator = FileCreator()
+let vc = ViewController()
 
 class DataCollect : CMMotionManager, CLLocationManagerDelegate {
+    let fileURL = fileCreator.createFileURL(transportation: vc.selectedTransportation, sensor: "Sensor")
+    
     // Motion Data
     var motionManager = CMMotionManager()
     var sensorDataArray: [Double] = []
     let sensorHeader = "Year,Month,Day,Hour,Min,Sec,AccX,AccY,AccZ,GyroX,GyroY,GyroZ,GraX,GraY,GraZ,Pitch,Roll,Yaw\n"
     var sensorDataString : String = ""
-    var directoryURL : URL!
 
     func startGetSensorData() -> Void {
         if motionManager.isDeviceMotionAvailable {
@@ -50,8 +53,7 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     }
     
     func endGetSensorData() -> Void {
-        let fileURL = createFile(transportation: "Car", sensor: "Sensor")
-        self.writeInFile(csvString: self.sensorDataString, fileURL: fileURL)
+        fileCreator.writeInFile(csvString: self.sensorDataString, fileURL: fileURL)
         self.motionManager.stopDeviceMotionUpdates()
     }
     
@@ -60,11 +62,7 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     var GPSDataArray: [Double] = []
     let GPSHeader = "Year,Month,Day,Hour,Min,Sec,Latitude,Longitude,Altitude,Speed\n"
     var GPSDataString : String = ""
-    
-//    func setGPSAuthorization() {
-////            locationManagerDidChangeAuthorization(CLlocationManager)
-//    }
-    
+        
     func startGetGPSData() -> Void {
         print("startGetGPSData\n")
         GPSDataString += GPSHeader
@@ -92,53 +90,51 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
         ]
 
         self.GPSDataString += (self.dateManager(type: "data") + self.doubleToString(data: self.GPSDataArray))
-        print(self.GPSDataArray) // debug
-        print("\n")
+//        print(self.GPSDataArray) // debug
+//        print("\n")
     }
 
     func endGetGPSData() -> Void {
-        let fileURL = createFile(transportation: "Car", sensor: "GPS")
-        self.writeInFile(csvString: self.GPSDataString, fileURL: fileURL)
+        fileCreator.writeInFile(csvString: self.GPSDataString, fileURL: fileURL)
         self.locationManager.stopUpdatingLocation()
     }
-
-    
-    // Create folder and file
-    func setFolderDirectory() -> Void {
-        print("createFolder working!\n"); // debug
-
-        // create directory
-        let fileManager = FileManager()
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        directoryURL = documentsURL.appendingPathComponent("HCI Lab")
-        do {
-            try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: false, attributes: nil)
-            print("create directory worked\n")
-        } catch let error as NSError {
-            print("Error creating directory: \(error.localizedDescription)")
-        }
-    }
-    
-    func createFile(transportation: String, sensor: String) -> URL {
-        // create date string
-        let formattedDate = dateManager(type: "file")
-        
-        // create file directory
-        let fileURL = directoryURL.appendingPathComponent(formattedDate + "_" + sensor + "Data.csv")
-
-        return fileURL
-    }
-    
-    func writeInFile(csvString: String, fileURL: URL) -> Void {
-        let text = NSString(string: csvString)
-        do {
-            try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
-            print("write worked\n")
-        } catch let e {
-            print(e.localizedDescription)
-        }
-    }
-
+//
+//    // Create folder and file
+//    func setFolderDirectory() -> Void {
+//        print("createFolder working!\n"); // debug
+//
+//        // create directory
+//        let fileManager = FileManager()
+//        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+//        directoryURL = documentsURL.appendingPathComponent("HCI Lab")
+//        do {
+//            try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: false, attributes: nil)
+//            print("create directory worked\n")
+//        } catch let error as NSError {
+//            print("Error creating directory: \(error.localizedDescription)")
+//        }
+//    }
+//    
+//    func createFile(transportation: String, sensor: String) -> URL {
+//        // create date string
+//        let formattedDate = dateManager(type: "file")
+//        
+//        // create file directory
+//        let fileURL = directoryURL.appendingPathComponent(formattedDate + "_" + sensor + "Data.csv")
+//
+//        return fileURL
+//    }
+//    
+//    func writeInFile(csvString: String, fileURL: URL) -> Void {
+//        let text = NSString(string: csvString)
+//        do {
+//            try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
+//            print("write worked\n")
+//        } catch let e {
+//            print(e.localizedDescription)
+//        }
+//    }
+//
     func dateManager(type: String) -> String {
         let date = Date()
         let format = DateFormatter()

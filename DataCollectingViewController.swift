@@ -4,6 +4,12 @@
 //
 //  Created by 우예지 on 2021/05/11.
 //
+//
+//  DataCollectingController.swift
+//  CRC_iOS
+//
+//  Created by 우예지 on 2021/05/11.
+//
 
 import UIKit
 
@@ -11,20 +17,16 @@ let TIME = 660
 
 class DataCollectingViewController: UIViewController {
     let data = DataCollect()
-
     // View
     override func viewDidLoad() {
         super.viewDidLoad()
         startTimer()
-        
-        data.setFolderDirectory()
         data.startGetSensorData() // start data collecting
         data.startGetGPSData()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-
     }
     
     func endView() {
@@ -40,7 +42,7 @@ class DataCollectingViewController: UIViewController {
         
         self.present(Survey2View, animated: true)
     }
-    
+
     // Timer
     @IBOutlet var timeLabel: UILabel!
     
