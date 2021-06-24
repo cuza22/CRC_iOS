@@ -12,6 +12,9 @@ var transportation = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
                       UICollectionViewDelegate {
+    // for selecting a transportation
+    var selectedTransportation: String! = ""
+    
     // collection view
     @IBOutlet var collectionView: UICollectionView!
     
@@ -40,27 +43,46 @@ class ViewController: UIViewController,
         return CGSize(width: frameWidth / 2 - 10, height: frameWidth / 2 - 10)
     }
 
-    // for selecting a transportation
-    let fileCreator = FileCreator()
-    var selectedTransportation: String! = ""
-
     // onclick event
     @IBAction func onClick(_ sender: UIButton) {
-        // change view
-        let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let survey1View = mainStoryBoard.instantiateViewController(withIdentifier: "Survey1")
-        self.navigationController?.pushViewController(survey1View, animated: true)
-        
         // create folder
+        let fileCreator = FileCreator()
         selectedTransportation = sender.titleLabel!.text
         fileCreator.setFolderDirectory()
         
         // take a picture
+        let imagePickerContoller = UIImagePickerController()
+        imagePickerContoller.delegate = self
+        imagePickerContoller.sourceType = .camera
+        self.present(imagePickerContoller, animated: true, completion: nil)
         
+        // change view
+        let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let survey1View = mainStoryBoard.instantiateViewController(withIdentifier: "Survey1")
+        self.navigationController?.pushViewController(survey1View, animated: true)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[.originalImage] as? UIImage {
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(savedImage), nil)
+        }
+    }
+    
+    @objc
+    func savedImage(image: UIImage,
+                    didFinishSavingWithError error: Error?,
+                    contextInfo: UnsafeMutableRawPointer?) {
+        if let error = error {
+            print(error)
+            return
+        }
     }
 
 }
