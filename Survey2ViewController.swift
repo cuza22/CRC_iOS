@@ -9,6 +9,7 @@ import UIKit
 import DLRadioButton
 
 class survey2ViewController: UIViewController {
+    let ad = UIApplication.shared.delegate as? AppDelegate
     let fileCreator = FileCreator()
 
     // onClick
@@ -17,8 +18,8 @@ class survey2ViewController: UIViewController {
         if index != nil {
             _ = chosenIndex?(self.index!)
             // create file
-            let fileURL = fileCreator.createFileURL(transportation: vc.selectedTransportation, sensor: "Survey")
-            fileCreator.writeInFile(csvString: positionArray[self.index!], fileURL: fileURL)
+            let fileURL = fileCreator.createFileURL(transportation: ad!.selectedTransportation, sensor: "Survey", directoryURL: (ad?.directoryURL)!)
+            fileCreator.writeInFile(csvString: resultArray[self.index!], fileURL: fileURL)
             
             // end
             let endAlert = UIAlertController(title: "측정 완료", message: "앱을 종료합니다", preferredStyle: UIAlertController.Style.alert)
@@ -31,19 +32,19 @@ class survey2ViewController: UIViewController {
     }
     
     // Radio Buttons
-    @IBOutlet var radioButtons: [UIButton]!
+    @IBOutlet var resultButtons: [UIButton]!
 
-    let positionArray: [String] = ["예", "아니오"]
+    let resultArray: [String] = ["예", "아니오"]
     var index: Int?
     var chosenIndex: ((Int) -> (Int))?
     
-    @IBAction func radioButtonSelect(_ sender: UIButton) {
+    @IBAction func resultButtonSelect(_ sender: UIButton) {
         if (index != nil || !sender.isSelected) {
-            for index in radioButtons.indices {
-                radioButtons[index].isSelected = false
+            for index in resultButtons.indices {
+                resultButtons[index].isSelected = false
             }
         sender.isSelected = true
-        index = radioButtons.firstIndex(of: sender)
+        index = resultButtons.firstIndex(of: sender)
         }
     }
   

@@ -5,26 +5,28 @@
 //  Created by 우예지 on 2021/06/25.
 //
 
-import Foundation
+import UIKit
 
 class FileCreator {
+    let ad = UIApplication.shared.delegate as? AppDelegate
     let fileManager = FileManager()
-    var directoryURL : URL!
 
     // Creates folder
-    func setFolderDirectory() -> Void {
+    func setFolderDirectory() -> URL {
         // create directory
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        directoryURL = documentsURL.appendingPathComponent("HCI Lab")
+        let directoryURL = documentsURL.appendingPathComponent("HCI Lab")
         do {
             try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: false, attributes: nil)
         } catch let error as NSError {
             print("Error creating directory: \(error.localizedDescription)")
         }
+        return directoryURL
     }
     
     // Creates file
-    func createFileURL(transportation: String, sensor: String) -> URL {
+    func createFileURL(transportation: String, sensor: String, directoryURL: URL) -> URL {
+        print("directoryURL is ") // debug
         // create date string
         let formattedDate = dateManager(type: "file")
         // create file directory

@@ -5,17 +5,21 @@
 //  Created by 우예지 on 2021/05/11.
 //
 
+import UIKit
 import CoreMotion
 import CoreLocation
 
 let FREQUENCY: Double = 80
 let fileCreator = FileCreator()
-let vc = ViewController()
-let positionvc = Survey1ViewController()
+//let vc = ViewController()
+//let positionvc = survey1ViewController()
 
-class DataCollect : CMMotionManager, CLLocationManagerDelegate {
-    let fileURL = fileCreator.createFileURL(transportation: vc.selectedTransportation, sensor: "Sensor")
-    
+class DataCollect : CMMotionManager,
+                    CLLocationManagerDelegate {
+    let ad = UIApplication.shared.delegate as? AppDelegate
+
+//    print("selected transportation in datacollect is " + vc.selectedTransportation!)
+
     // Motion Data
     var motionManager = CMMotionManager()
     var sensorDataArray: [Double] = []
@@ -54,8 +58,9 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     }
     
     func endGetSensorData() -> Void {
-        fileCreator.writeInFile(csvString: "Position\n" + positionvc.position + "\n", fileURL: fileURL) // position
-        fileCreator.writeInFile(csvString: self.sensorDataString, fileURL: fileURL) // data
+        let sensorFileURL = fileCreator.createFileURL(transportation: ad!.selectedTransportation, sensor: "Sensor", directoryURL: (ad?.directoryURL)!)
+        fileCreator.writeInFile(csvString: "Position\n" + ad!.position + "\n", fileURL: sensorFileURL) // position
+        fileCreator.writeInFile(csvString: self.sensorDataString, fileURL: sensorFileURL) // data
         self.motionManager.stopDeviceMotionUpdates()
     }
     
@@ -97,7 +102,8 @@ class DataCollect : CMMotionManager, CLLocationManagerDelegate {
     }
 
     func endGetGPSData() -> Void {
-        fileCreator.writeInFile(csvString: self.GPSDataString, fileURL: fileURL)
+        let GPSFileURL = fileCreator.createFileURL(transportation: ad!.selectedTransportation, sensor: "GPS", directoryURL: (ad?.directoryURL)!)
+        fileCreator.writeInFile(csvString: self.GPSDataString, fileURL: GPSFileURL)
         self.locationManager.stopUpdatingLocation()
     }
 //

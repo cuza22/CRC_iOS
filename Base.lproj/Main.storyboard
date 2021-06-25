@@ -42,14 +42,14 @@
                                                     <color key="tintColor" systemColor="tertiarySystemBackgroundColor"/>
                                                     <state key="normal" title="Button"/>
                                                     <connections>
-                                                        <action selector="onClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o9e-yw-vbv"/>
+                                                        <action selector="onClick:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XNv-sC-8ca"/>
                                                         <segue destination="z9Q-rK-fpZ" kind="show" animates="NO" id="MR4-0o-PFh"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                         </collectionViewCellContentView>
                                         <connections>
-                                            <outlet property="cellButton" destination="g2N-n9-fSG" id="AiI-Zm-gSE"/>
+                                            <outlet property="cellButton" destination="g2N-n9-fSG" id="WA3-3H-1kc"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -69,7 +69,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="collectionView" destination="Iqy-RF-NGh" id="N4G-cs-Rlu"/>
+                        <outlet property="collectionView" destination="Iqy-RF-NGh" id="PmS-wC-Rpc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -102,14 +102,14 @@
                                 <rect key="frame" x="188" y="120" width="30" height="30"/>
                                 <state key="normal" title="예"/>
                                 <connections>
-                                    <action selector="radioButtonSelect:" destination="wDf-uP-jUk" eventType="touchUpInside" id="5Ea-rd-Cv0"/>
+                                    <action selector="resultButtonSelect:" destination="wDf-uP-jUk" eventType="touchUpInside" id="Yvp-w9-rOT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UOU-MM-RK3">
                                 <rect key="frame" x="188" y="174" width="39" height="30"/>
                                 <state key="normal" title="아니오"/>
                                 <connections>
-                                    <action selector="radioButtonSelect:" destination="wDf-uP-jUk" eventType="touchUpInside" id="jKc-mE-vcZ"/>
+                                    <action selector="resultButtonSelect:" destination="wDf-uP-jUk" eventType="touchUpInside" id="eWY-1q-vHg"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -130,8 +130,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outletCollection property="radioButtons" destination="7UI-s4-M09" collectionClass="NSMutableArray" id="hYZ-Js-Fa2"/>
-                        <outletCollection property="radioButtons" destination="UOU-MM-RK3" collectionClass="NSMutableArray" id="hD5-sU-A6M"/>
+                        <outletCollection property="resultButtons" destination="7UI-s4-M09" collectionClass="NSMutableArray" id="C6B-5x-guv"/>
+                        <outletCollection property="resultButtons" destination="UOU-MM-RK3" collectionClass="NSMutableArray" id="qmV-Yx-75Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qcu-fh-FBe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

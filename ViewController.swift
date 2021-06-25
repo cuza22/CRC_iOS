@@ -12,8 +12,10 @@ var transportation = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
                       UICollectionViewDelegate {
+    let ad = UIApplication.shared.delegate as? AppDelegate
     // for selecting a transportation
-    var selectedTransportation: String! = ""
+//    var selectedTransportation: String?
+//    var directoryURL: URL?
     
     // collection view
     @IBOutlet var collectionView: UICollectionView!
@@ -47,15 +49,17 @@ class ViewController: UIViewController,
     @IBAction func onClick(_ sender: UIButton) {
         // create folder
         let fileCreator = FileCreator()
-        selectedTransportation = sender.titleLabel!.text
-        fileCreator.setFolderDirectory()
+        ad?.selectedTransportation = sender.titleLabel!.text!
+        ad?.directoryURL = fileCreator.setFolderDirectory()
+        print("selected transportation is " + (ad?.selectedTransportation)! + "\n") // debug
+
         
-        // take a picture
-        let imagePickerContoller = UIImagePickerController()
-        imagePickerContoller.delegate = self
-        imagePickerContoller.sourceType = .camera
-        self.present(imagePickerContoller, animated: true, completion: nil)
-        
+//        // take a picture
+//        let imagePickerContoller = UIImagePickerController()
+//        imagePickerContoller.delegate = self
+//        imagePickerContoller.sourceType = .camera
+//        self.present(imagePickerContoller, animated: true, completion: nil)
+//
         // change view
         let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let survey1View = mainStoryBoard.instantiateViewController(withIdentifier: "Survey1")
@@ -67,25 +71,29 @@ class ViewController: UIViewController,
     }
 
 }
-
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[.originalImage] as? UIImage {
-            UIImageWriteToSavedPhotosAlbum(image, self, #selector(savedImage), nil)
-        }
-    }
-    
-    @objc
-    func savedImage(image: UIImage,
-                    didFinishSavingWithError error: Error?,
-                    contextInfo: UnsafeMutableRawPointer?) {
-        if let error = error {
-            print(error)
-            return
-        }
-    }
-
-}
+//
+//extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        if let image = info[.originalImage] as? UIImage {
+//            UIImageWriteToSavedPhotosAlbum(image, self, #selector(savedImage), nil)
+//        }
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//    
+//    @objc
+//    func savedImage(image: UIImage,
+//                    didFinishSavingWithError error: Error?,
+//                    contextInfo: UnsafeMutableRawPointer?) {
+//        if let error = error {
+//            print(error)
+//            return
+//        }
+//    }
+//    
+//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+//        picker.dismiss(animated: true, completion: nil)
+//    }
+//}
 
 class CustomCell: UICollectionViewCell {
     @IBOutlet var cellButton: UIButton!

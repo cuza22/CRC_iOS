@@ -13,7 +13,7 @@
 
 import UIKit
 
-let TIME = 660
+let TIME = 20
 
 class DataCollectingViewController: UIViewController {
     let data = DataCollect()
