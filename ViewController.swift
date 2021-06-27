@@ -7,22 +7,21 @@
 
 import UIKit
 
-var transportation = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair", "Bus", "Metro", "Car"]
+var transportations = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchair", "Bus", "Metro", "Car"]
 
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
                       UICollectionViewDelegate {
+    
     let ad = UIApplication.shared.delegate as? AppDelegate
-    // for selecting a transportation
-//    var selectedTransportation: String?
-//    var directoryURL: URL?
+    var selectedIndex: Int?
     
     // collection view
     @IBOutlet var collectionView: UICollectionView!
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return transportation.count
+        return transportations.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -31,8 +30,12 @@ class ViewController: UIViewController,
             return UICollectionViewCell()
         }
 
-        let buttonText = transportation[indexPath.item]
-        cell.update(text: buttonText)
+        let transportation = transportations[indexPath.item]
+        let transportationIcon = UIImage(named: transportation)!
+        
+        cell.updateButtonIcon(icon: transportationIcon)
+        cell.updateLabel(text: transportation)
+        cell.setIndex(index: indexPath.item)
         
         return cell
     }
@@ -40,26 +43,19 @@ class ViewController: UIViewController,
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let frameWidth = collectionView.frame.width
         
-        return CGSize(width: frameWidth / 2 - 10, height: frameWidth / 2 - 10)
+        let frameWidth = UIScreen.main.bounds.width
+        
+        return CGSize(width: frameWidth / 2, height: frameWidth / 2)
     }
 
     // onclick event
     @IBAction func onClick(_ sender: UIButton) {
         // create folder
         let fileCreator = FileCreator()
-        ad?.selectedTransportation = sender.titleLabel!.text!
+        ad?.selectedTransportation = transportations[sender.tag]
         ad?.directoryURL = fileCreator.setFolderDirectory()
-        print("selected transportation is " + (ad?.selectedTransportation)! + "\n") // debug
 
-        
-//        // take a picture
-//        let imagePickerContoller = UIImagePickerController()
-//        imagePickerContoller.delegate = self
-//        imagePickerContoller.sourceType = .camera
-//        self.present(imagePickerContoller, animated: true, completion: nil)
-//
         // change view
         let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let survey1View = mainStoryBoard.instantiateViewController(withIdentifier: "Survey1")
@@ -71,35 +67,20 @@ class ViewController: UIViewController,
     }
 
 }
-//
-//extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-//        if let image = info[.originalImage] as? UIImage {
-//            UIImageWriteToSavedPhotosAlbum(image, self, #selector(savedImage), nil)
-//        }
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//    
-//    @objc
-//    func savedImage(image: UIImage,
-//                    didFinishSavingWithError error: Error?,
-//                    contextInfo: UnsafeMutableRawPointer?) {
-//        if let error = error {
-//            print(error)
-//            return
-//        }
-//    }
-//    
-//    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-//        picker.dismiss(animated: true, completion: nil)
-//    }
-//}
 
 class CustomCell: UICollectionViewCell {
     @IBOutlet var cellButton: UIButton!
+    @IBOutlet var cellLabel: UILabel!
     
-    func update(text: String) {
-        cellButton.setTitle(text, for: .normal)
+    func updateButtonIcon(icon: UIImage) {
+        cellButton.setImage(icon, for: .normal)
     }
     
+    func updateLabel(text: String) {
+        cellLabel.text = text
+    }
+    
+    func setIndex(index: Int) {
+        cellButton.tag = index
+    }
 }

@@ -26,11 +26,10 @@ class FileCreator {
     
     // Creates file
     func createFileURL(transportation: String, sensor: String, directoryURL: URL) -> URL {
-        print("directoryURL is ") // debug
         // create date string
         let formattedDate = dateManager(type: "file")
         // create file directory
-        let fileURL = directoryURL.appendingPathComponent(formattedDate + "_" + sensor + "Data.csv")
+        let fileURL = directoryURL.appendingPathComponent(formattedDate + "_" + sensor + ".csv")
 
         return fileURL
     }
@@ -40,7 +39,6 @@ class FileCreator {
         let text = NSString(string: csvString)
         do {
             try text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
-            print("write worked\n")
         } catch let e {
             print(e.localizedDescription)
         }

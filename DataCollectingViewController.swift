@@ -4,16 +4,11 @@
 //
 //  Created by 우예지 on 2021/05/11.
 //
-//
-//  DataCollectingController.swift
-//  CRC_iOS
-//
-//  Created by 우예지 on 2021/05/11.
-//
 
 import UIKit
 
-let TIME = 20
+
+let TIME = 660
 
 class DataCollectingViewController: UIViewController {
     let data = DataCollect()
@@ -59,7 +54,6 @@ class DataCollectingViewController: UIViewController {
         timeLeft -= 1
         timeLabel.text = String(timeLeft) + " seconds remaining..."
 
-        
         if timeLeft == 0 {
             timer?.invalidate()
             endView()

@@ -7,23 +7,20 @@
 
 import UIKit
 
+@available(iOS 13.0, *)
 class survey1ViewController: UIViewController {
     let ad = UIApplication.shared.delegate as? AppDelegate
-//    var position: String! = ""
     
     // 완료 Button
     @IBAction func onClick1(_ sender: UIButton) {
-        let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let DataCollectingView = mainStoryBoard.instantiateViewController(identifier: "Data Collecting")
-        // get index
-        
-        print("\n\nIndex is: " + String(index!) + "\n\n")
         if index != nil {
+            let mainStoryBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let DataCollectingView = mainStoryBoard.instantiateViewController(identifier: "Data Collecting")
+            
             _ = chosenIndex?(self.index!)
             
             // save position
             ad?.position = positionArray[self.index!]
-            print("\n\n" + (ad?.position)! + "\n\n") // debug
             
             // change view
             DataCollectingView.modalTransitionStyle = UIModalTransitionStyle.coverVertical
@@ -35,7 +32,7 @@ class survey1ViewController: UIViewController {
     // Radio Buttons
     @IBOutlet var radioButtons: [UIButton]!
 
-    let positionArray: [String] = ["손", "가방", "주머니", "기타"]
+    let positionArray: [String] = ["Hand", "Bag", "Pocket", "etc"]
     var index: Int?
     var chosenIndex: ((Int) -> (Int))?
     
@@ -46,9 +43,6 @@ class survey1ViewController: UIViewController {
             }
         sender.isSelected = true
         index = radioButtons.firstIndex(of: sender)
-        print("\nIndex now: ")
-        print(index!)
-        print("\n")// debug
         }
     }
     
@@ -60,11 +54,10 @@ class survey1ViewController: UIViewController {
         imagePickerContoller.delegate = self
         imagePickerContoller.sourceType = .camera
         self.present(imagePickerContoller, animated: true, completion: nil)
-        
-
     }
 }
 
+@available(iOS 13.0, *)
 extension survey1ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {

@@ -21,7 +21,7 @@ class survey2ViewController: UIViewController {
             
             // create file
             let fileURL = fileCreator.createFileURL(transportation: ad!.selectedTransportation, sensor: "Survey", directoryURL: (ad?.directoryURL)!)
-            fileCreator.writeInFile(csvString: resultArray[self.index!], fileURL: fileURL)
+            fileCreator.writeInFile(csvString: "Survey3\n" + resultArray[self.index!], fileURL: fileURL)
 
             // close the app by exit
             exit(1)
@@ -50,6 +50,13 @@ class survey2ViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        for _ in 0..<10 {
+            AudioServicesPlaySystemSound(4095)
+            AudioServicesPlaySystemSound(1234)
+            if isEnd == true {
+                break
+            }
+        }
         // end alert
         let endAlert = UIAlertController(title: "측정 완료", message: "🔔", preferredStyle: UIAlertController.Style.alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
@@ -58,12 +65,5 @@ class survey2ViewController: UIViewController {
         endAlert.addAction(okAction)
 
         present(endAlert, animated: false, completion: nil)
-//        if endAlert.isBeingPresented {
-//            print("loaded\n")
-//            while isEnd == false {
-                AudioServicesPlaySystemSound(4095)
-                AudioServicesPlaySystemSound(1234)
-//            }
-//        }
     }
 }
