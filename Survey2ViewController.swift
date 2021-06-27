@@ -6,35 +6,32 @@
 //
 
 import UIKit
-import DLRadioButton
+import AudioToolbox
 
 class survey2ViewController: UIViewController {
     let ad = UIApplication.shared.delegate as? AppDelegate
     let fileCreator = FileCreator()
-
+    var isEnd: Bool = false
+    
     // onClick
     @IBAction func onClick2(_ sender: Any) {
  
         if index != nil {
             _ = chosenIndex?(self.index!)
+            
             // create file
             let fileURL = fileCreator.createFileURL(transportation: ad!.selectedTransportation, sensor: "Survey", directoryURL: (ad?.directoryURL)!)
             fileCreator.writeInFile(csvString: resultArray[self.index!], fileURL: fileURL)
-            
-            // end
-            let endAlert = UIAlertController(title: "측정 완료", message: "앱을 종료합니다", preferredStyle: UIAlertController.Style.alert)
-            let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
-                UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
-            }
-            endAlert.addAction(okAction)
-            self.present(endAlert, animated: false, completion: nil)
+
+            // close the app by exit
+            exit(1)
         }
     }
     
     // Radio Buttons
     @IBOutlet var resultButtons: [UIButton]!
 
-    let resultArray: [String] = ["예", "아니오"]
+    let resultArray: [String] = ["Yes", "No"]
     var index: Int?
     var chosenIndex: ((Int) -> (Int))?
     
@@ -47,13 +44,26 @@ class survey2ViewController: UIViewController {
         index = resultButtons.firstIndex(of: sender)
         }
     }
-  
-            
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("survey2 view\n")
-//        let data = DataCollect()
-//        print("csvString: " + data.doubleToString(data: data.sensorDataArray) + "\n") // debug
-//        data.createCSVFile(csvString: data.doubleToString(data: data.sensorDataArray))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // end alert
+        let endAlert = UIAlertController(title: "측정 완료", message: "🔔", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+            self.isEnd = true
+        }
+        endAlert.addAction(okAction)
+
+        present(endAlert, animated: false, completion: nil)
+//        if endAlert.isBeingPresented {
+//            print("loaded\n")
+//            while isEnd == false {
+                AudioServicesPlaySystemSound(4095)
+                AudioServicesPlaySystemSound(1234)
+//            }
+//        }
     }
 }
