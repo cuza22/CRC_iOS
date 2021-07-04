@@ -15,7 +15,7 @@ class FileCreator {
     func setFolderDirectory() -> URL {
         // create directory
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let directoryURL = documentsURL.appendingPathComponent("HCI Lab")
+        let directoryURL = documentsURL.appendingPathComponent("HCILab")
         do {
             try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: false, attributes: nil)
         } catch let error as NSError {
@@ -29,7 +29,7 @@ class FileCreator {
         // create date string
         let formattedDate = dateManager(type: "file")
         // create file directory
-        let fileURL = directoryURL.appendingPathComponent(formattedDate + "_" + sensor + ".csv")
+        let fileURL = directoryURL.appendingPathComponent(formattedDate + "_" + transportation + "_" + sensor + ".csv")
 
         return fileURL
     }

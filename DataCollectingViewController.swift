@@ -16,9 +16,11 @@ class DataCollectingViewController: UIViewController {
     // View
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.isIdleTimerDisabled = true // prevent screen from turning off while data collecting 
         startTimer()
         data.startGetSensorData() // start data collecting
         data.startGetGPSData()
+        data.writeInFile()
     }
     
     override func didReceiveMemoryWarning() {

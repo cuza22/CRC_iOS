@@ -11,13 +11,16 @@ var transportations = ["Still", "Walking", "Manual Wheelchair", "Power Wheelchai
 
 class ViewController: UIViewController,
                       UICollectionViewDataSource,
-                      UICollectionViewDelegate {
+                      UICollectionViewDelegate,
+                      UICollectionViewDelegateFlowLayout {
     
     let ad = UIApplication.shared.delegate as? AppDelegate
     var selectedIndex: Int?
     
     // collection view
-    @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    let sectionInsects = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
@@ -44,9 +47,14 @@ class ViewController: UIViewController,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let frameWidth = UIScreen.main.bounds.width
+//        let frameWidth = UIScreen.main.bounds.width
+        let frameWidth = collectionView.frame.width
         
-        return CGSize(width: frameWidth / 2, height: frameWidth / 2)
+        let itemsPerRow: CGFloat = 2
+        let widthPadding = sectionInsects.left * (itemsPerRow + 1)
+        let cellWidth = (frameWidth - widthPadding) / itemsPerRow
+        
+        return CGSize(width: cellWidth, height: cellWidth * 1.2)
     }
 
     // onclick event
@@ -64,8 +72,9 @@ class ViewController: UIViewController,
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
-
 }
 
 class CustomCell: UICollectionViewCell {
