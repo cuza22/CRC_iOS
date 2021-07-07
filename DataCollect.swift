@@ -12,8 +12,9 @@ import CoreLocation
 let FREQUENCY: Double = 60
 let GPS_INTERVAL: Double = 5
 let WRITE_INTERVAL: Double = 5
-let GRAVITY_CONST: Double = -9.81
-let PRESSURE_CONST: Double = 100
+let GRAVITY_CONST: Double = 9.81
+let PRESSURE_CONST: Double = 1000
+let RADIAN_TO_DEGREE_CONST: Double = 180/Double.pi
 let fileCreator = FileCreator()
 
 @available(iOS 14.0, *)
@@ -51,6 +52,7 @@ class DataCollect : CMMotionManager,
             self.motionManager.startAccelerometerUpdates()
             self.motionManager.startGyroUpdates()
             self.motionManager.startMagnetometerUpdates()
+            self.locationManager.startUpdatingHeading()
             self.startStepUpdates()
             self.startAltimeterUpdates()
             UIDevice.current.isProximityMonitoringEnabled = true
@@ -76,7 +78,7 @@ class DataCollect : CMMotionManager,
                         // Height
                         self.altimeterData?.relativeAltitude.doubleValue ?? 0,
                         // Proxi
-                        UIDevice.current.proximityState ? 8 : 0,
+                        UIDevice.current.proximityState ? 1 : 0,
                         // Mag
                         mag.magneticField.x,
                         mag.magneticField.y,
@@ -88,22 +90,16 @@ class DataCollect : CMMotionManager,
                         // Pressure
                         self.altimeterData?.pressure.doubleValue ?? 0 * PRESSURE_CONST,
                         // RotVec
-                        motion.attitude.quaternion.w,
-                        motion.attitude.quaternion.x,
-                        motion.attitude.quaternion.y,
-                        motion.attitude.quaternion.z,
+                        motion.attitude.quaternion.x * RADIAN_TO_DEGREE_CONST,
+                        motion.attitude.quaternion.y * RADIAN_TO_DEGREE_CONST,
+                        motion.attitude.quaternion.z * RADIAN_TO_DEGREE_CONST,
+                        motion.attitude.quaternion.w * RADIAN_TO_DEGREE_CONST,
                         0, // RotVec_4
-//                                self.attitude.quaternion.w,
-//                                self.attitude.quaternion.x,
-//                                self.attitude.quaternion.y,
-//                                self.attitude.quaternion.z,
                         // Orientation
-                        motion.attitude.yaw,
-                        motion.attitude.pitch,
-                        motion.attitude.roll,
-//                                self.attitude.yaw,
-//                                self.attitude.pitch,
-//                                self.attitude.roll,
+//                        motion.attitude.rotationMatrix,
+                        self.azimuth,
+                        motion.attitude.pitch * RADIAN_TO_DEGREE_CONST,
+                        motion.attitude.roll * RADIAN_TO_DEGREE_CONST,
                         // Acc
                         acc.acceleration.x * GRAVITY_CONST,
                         acc.acceleration.y * GRAVITY_CONST,
@@ -143,11 +139,17 @@ class DataCollect : CMMotionManager,
         })
     }
     
+    var azimuth: Double = 0
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        azimuth = newHeading.magneticHeading
+        }
+    
     func endGetSensorData() -> Void {
         self.motionManager.stopDeviceMotionUpdates()
         self.motionManager.stopAccelerometerUpdates()
         self.motionManager.stopGyroUpdates()
         self.motionManager.stopMagnetometerUpdates()
+        self.locationManager.stopUpdatingHeading()
         self.altimeter.stopRelativeAltitudeUpdates()
         self.pedometer.stopEventUpdates()
         UIDevice.current.isProximityMonitoringEnabled = false
@@ -169,7 +171,7 @@ class DataCollect : CMMotionManager,
         if (locationManager.authorizationStatus == .authorizedAlways
                 || locationManager.authorizationStatus == .authorizedWhenInUse) {
             locationManager.delegate = self
-//            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest // highest accuracy
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest // highest accuracy
             self.locationManager.startUpdatingLocation()
         }
         

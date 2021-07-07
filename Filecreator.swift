@@ -15,7 +15,7 @@ class FileCreator {
     func setFolderDirectory() -> URL {
         // create directory
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let directoryURL = documentsURL.appendingPathComponent("HCILab")
+        let directoryURL = documentsURL.appendingPathComponent("HCILabData")
         do {
             try fileManager.createDirectory(atPath: directoryURL.path, withIntermediateDirectories: false, attributes: nil)
         } catch let error as NSError {

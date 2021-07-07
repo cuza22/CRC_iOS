@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 let TIME = 660
 
 class DataCollectingViewController: UIViewController {
@@ -18,6 +17,9 @@ class DataCollectingViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.isIdleTimerDisabled = true // prevent screen from turning off while data collecting 
         startTimer()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         data.startGetSensorData() // start data collecting
         data.startGetGPSData()
         data.writeInFile()
